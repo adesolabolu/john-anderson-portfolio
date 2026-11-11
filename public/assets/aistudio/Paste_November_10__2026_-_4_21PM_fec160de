@@ -1,0 +1,686 @@
+Below is the component for your context <!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>John Anderson - Senior Software Engineer</title>
+
+  
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    
+    body {
+      position: relative;
+      background-color: #FFFBF7;
+    }
+    
+    /* Brutalist dotted background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(circle, #FF6B35 1px, transparent 1px);
+      background-size: 24px 24px;
+      z-index: -1;
+      opacity: 0.03;
+    }
+
+    .animate-on-scroll-hidden {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .animate-on-scroll-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Brutalist borders */
+    .brutalist-border {
+      border: 3px solid #1A1423;
+      position: relative;
+    }
+
+    .brutalist-border::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 100%;
+      height: 100%;
+      border: 3px solid #FF6B35;
+      z-index: -1;
+      transition: all 0.3s ease;
+    }
+
+    .brutalist-border:hover::after {
+      top: 12px;
+      left: 12px;
+    }
+
+    /* Skewed sections */
+    .skew-section {
+      transform: skewY(-2deg);
+      margin: 16px 0;
+    }
+
+    .skew-section > * {
+      transform: skewY(2deg);
+    }
+    
+    @media print {
+      body::before {
+        display: none;
+      }
+      
+      header, footer, .no-print {
+        display: none !important;
+      }
+      
+      .brutalist-border::after {
+        display: none;
+      }
+    }
+
+    /* Diagonal accent */
+    .diagonal-accent {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .diagonal-accent::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+      opacity: 0.08;
+      transform: rotate(15deg);
+      z-index: 0;
+    }
+
+    /* Number counter animation */
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .slide-up {
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+<style type="text/tailwindcss">/**
+ * This is the master CSS file. Do not add any other CSS here.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;</style><script src="https://cdn.tailwindcss.com"></script><script>tailwind.config = {
+  theme: {
+    extend: {
+      // Add all theme colors here
+      colors: {
+        'brand-primary': '#FF6B35',
+        'brand-secondary': '#F7931E',
+        'brand-tertiary': '#004E89',
+        'brand-accent': '#1A1423',
+        'neutral-background': '#FFFBF7',
+        'neutral-surface': '#FFFFFF',
+        'neutral-surface1': '#FFF4E6',
+        'neutral-border': '#FFE4CC',
+        'neutral-border-interactive': '#FF6B35',
+        'text-primary': '#1A1423',
+        'text-secondary': '#6B5B62',
+        'text-on-primary': '#FFFBF7',
+        'text-on-primary-alt': '#1A1423',
+      },
+      // Add all theme fonts here
+      fontFamily: {
+        'primary': ['Space Grotesk', 'sans-serif'],
+        'secondary': ['Inter', 'sans-serif'],
+        'display': ['Bebas Neue', 'cursive'],
+      },
+      // Add other theme values (spacing, radius) here
+      spacing: {
+        's': '16px',
+        'm': '24px',
+        'l': '32px',
+        'xl': '48px',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'md': '8px',
+        'lg': '16px',
+        'xl': '24px',
+      },
+      boxShadow: {
+        'card': '8px 8px 0px rgba(26, 20, 35, 0.1)',
+        'subtle': '4px 4px 0px rgba(26, 20, 35, 0.05)',
+        'bold': '12px 12px 0px #FF6B35',
+        'hover': '16px 16px 0px rgba(255, 107, 53, 0.3)',
+      }
+    }
+  }
+}</script></head>
+
+<body class="font-secondary bg-neutral-background text-text-secondary overflow-x-hidden">
+
+  <header class="border-b-4 border-brand-accent bg-neutral-background sticky top-0 z-50 no-print">
+    <nav data-editable="header" class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+      <a data-editable="text" data-path="header.logo.text" class="font-display text-4xl font-bold text-brand-primary tracking-tight hover:text-brand-secondary transition-colors" href="/">
+        JA.
+      </a>
+      <div class="hidden md:flex items-center gap-8" data-editable-list="header.navLinks">
+        <a data-editable="text" data-path="header.navLinks[0].text" class="font-primary font-bold text-text-primary hover:text-brand-primary transition-colors uppercase tracking-wide text-sm" href="#experience">Experience</a>
+        <a data-editable="text" data-path="header.navLinks[1].text" class="font-primary font-bold text-text-primary hover:text-brand-primary transition-colors uppercase tracking-wide text-sm" href="#skills">Skills</a>
+        <a data-editable="text" data-path="header.navLinks[2].text" class="font-primary font-bold text-text-primary hover:text-brand-primary transition-colors uppercase tracking-wide text-sm" href="#education">Education</a>
+      </div>
+      <button data-editable="text" data-path="header.ctaButton.text" onclick="window.print()" class="bg-brand-accent text-text-on-primary font-primary font-bold px-6 py-3 border-3 border-brand-accent hover:bg-brand-primary hover:border-brand-primary transition-all uppercase tracking-wide text-sm shadow-subtle">
+        Download
+      </button>
+    </nav>
+  </header>
+
+  <main><!-- Hero Section - Brutalist Design -->
+<section class="min-h-screen flex items-center justify-center px-6 pt-14 pb-6 relative overflow-hidden diagonal-accent">
+  <div class="max-w-7xl mx-auto w-full relative z-10">
+    <div class="grid lg:grid-cols-12 gap-12 items-center">
+      <!-- Left Content -->
+      <div class="lg:col-span-7" data-animation-on-scroll="fadeInUp">
+        <div class="mb-6">
+          <span class="inline-block bg-brand-primary text-text-on-primary font-primary font-bold px-4 py-2 uppercase tracking-wider text-xs mb-4">
+            Available for Hire
+          </span>
+        </div>
+        
+        <h1 class="font-display text-6xl md:text-8xl lg:text-9xl font-bold text-text-primary mb-6 leading-none" contenteditable="true">
+          JOHN<br>ANDERSON
+        </h1>
+        
+        <div class="flex items-center gap-4 mb-8">
+          <div class="h-1 w-16 bg-brand-primary"></div>
+          <p class="font-primary text-2xl md:text-3xl font-bold text-brand-tertiary uppercase tracking-wide" contenteditable="true">
+            Senior Software Engineer
+          </p>
+        </div>
+        
+        <p class="text-lg md:text-xl text-text-secondary max-w-2xl leading-relaxed mb-10" contenteditable="true">
+          Transforming complex challenges into elegant solutions. 8+ years building scalable systems that drive 40% performance gains and $200K cost savings.
+        </p>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 mb-10 max-w-xl">
+          <div class="border-l-4 border-brand-primary pl-4">
+            <div class="font-display text-4xl font-bold text-brand-primary">8+</div>
+            <div class="font-primary text-xs uppercase tracking-wider text-text-secondary">Years Exp</div>
+          </div>
+          <div class="border-l-4 border-brand-secondary pl-4">
+            <div class="font-display text-4xl font-bold text-brand-secondary">2M+</div>
+            <div class="font-primary text-xs uppercase tracking-wider text-text-secondary">Users Served</div>
+          </div>
+          <div class="border-l-4 border-brand-tertiary pl-4">
+            <div class="font-display text-4xl font-bold text-brand-tertiary">40%</div>
+            <div class="font-primary text-xs uppercase tracking-wider text-text-secondary">Performance ↑</div>
+          </div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4">
+          <a href="#experience" class="brutalist-border bg-brand-primary text-text-on-primary font-primary font-bold px-8 py-4 uppercase tracking-wide text-sm inline-block hover:bg-brand-secondary transition-colors">
+            View Work
+          </a>
+          <a href="mailto:john.anderson@email.com" class="brutalist-border bg-neutral-surface text-text-primary font-primary font-bold px-8 py-4 uppercase tracking-wide text-sm inline-block hover:bg-neutral-surface1 transition-colors">
+            Get in Touch
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Content - Contact Info -->
+      <div class="lg:col-span-5" data-animation-on-scroll="fadeInUp">
+        <div class="bg-brand-accent border-4 border-brand-primary p-8 shadow-bold">
+          <h3 class="font-display text-3xl font-bold text-brand-primary mb-6">CONTACT</h3>
+          <div class="space-y-4">
+            <a href="mailto:john.anderson@email.com" class="flex items-start gap-4 text-neutral-background hover:text-brand-primary transition-colors group">
+              <span class="text-2xl group-hover:scale-110 transition-transform">✉</span>
+              <div>
+                <div class="font-primary font-bold uppercase text-xs text-brand-secondary mb-1">Email</div>
+                <div class="text-sm" contenteditable="true">john.anderson@email.com</div>
+              </div>
+            </a>
+            
+            <a href="tel:+15551234567" class="flex items-start gap-4 text-neutral-background hover:text-brand-primary transition-colors group">
+              <span class="text-2xl group-hover:scale-110 transition-transform">☎</span>
+              <div>
+                <div class="font-primary font-bold uppercase text-xs text-brand-secondary mb-1">Phone</div>
+                <div class="text-sm" contenteditable="true">(555) 123-4567</div>
+              </div>
+            </a>
+            
+            <div class="flex items-start gap-4 text-neutral-background">
+              <span class="text-2xl">⚑</span>
+              <div>
+                <div class="font-primary font-bold uppercase text-xs text-brand-secondary mb-1">Location</div>
+                <div class="text-sm" contenteditable="true">San Francisco, CA</div>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t-2 border-brand-primary mt-6">
+              <div class="flex gap-4">
+                <a href="https://linkedin.com/in/johnanderson" target="_blank" class="w-12 h-12 border-2 border-brand-primary hover:bg-brand-primary flex items-center justify-center text-brand-primary hover:text-brand-accent transition-all font-bold">in</a>
+                <a href="https://github.com/johnanderson" target="_blank" class="w-12 h-12 border-2 border-brand-primary hover:bg-brand-primary flex items-center justify-center text-brand-primary hover:text-brand-accent transition-all font-bold">gh</a>
+                <button onclick="window.print()" class="w-12 h-12 border-2 border-brand-primary hover:bg-brand-primary flex items-center justify-center text-brand-primary hover:text-brand-accent transition-all font-bold">↓</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience" class="py-5 px-6 skew-section bg-neutral-surface1">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-5" data-animation-on-scroll="fadeInUp">
+      <div class="flex items-center gap-6 mb-2">
+        <div class="h-2 w-20 bg-brand-primary"></div>
+        <span class="font-primary font-bold uppercase tracking-wider text-sm text-brand-primary">Portfolio</span>
+      </div>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-text-primary mb-4">
+        EXPERIENCE
+      </h2>
+    </div>
+
+    <div class="space-y-5">
+      <!-- Job 1 -->
+      <div class="border-4 border-brand-accent bg-neutral-surface p-8 hover:shadow-hover transition-all duration-300" data-animation-on-scroll="fadeInUp">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
+          <div class="flex-1">
+            <div class="inline-block bg-brand-primary text-text-on-primary font-primary font-bold px-3 py-1 uppercase tracking-wider text-xs mb-3">
+              Current
+            </div>
+            <h3 class="font-display text-3xl md:text-4xl font-bold text-text-primary mb-2" contenteditable="true">
+              SENIOR SOFTWARE ENGINEER
+            </h3>
+            <p class="text-brand-tertiary font-primary font-bold text-lg mb-1" contenteditable="true">
+              TechCorp Solutions
+            </p>
+            <p class="text-text-secondary text-sm" contenteditable="true">San Francisco, CA</p>
+          </div>
+          <div class="bg-neutral-surface text-brand-primary font-primary font-bold px-6 py-3 uppercase tracking-wider text-sm whitespace-nowrap h-fit border-4 border-brand-primary">
+            <span contenteditable="true">2020 - Present</span>
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="border-l-4 border-brand-primary pl-4 py-2">
+            <span class="text-text-secondary" contenteditable="true">Led microservices architecture serving 2M+ daily users, improving reliability by 35%</span>
+          </div>
+          <div class="border-l-4 border-brand-secondary pl-4 py-2">
+            <span class="text-text-secondary" contenteditable="true">Architected CI/CD pipeline reducing deployment from 4 hours to 15 minutes</span>
+          </div>
+          <div class="border-l-4 border-brand-tertiary pl-4 py-2">
+            <span class="text-text-secondary" contenteditable="true">Mentored 5 junior engineers with 100% promotion rate in 18 months</span>
+          </div>
+          <div class="border-l-4 border-brand-primary pl-4 py-2">
+            <span class="text-text-secondary" contenteditable="true">Optimized queries and caching, reducing API response time by 60%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job 2 -->
+      <div class="border-4 border-brand-accent bg-neutral-surface p-8 hover:shadow-hover transition-all duration-300" data-animation-on-scroll="fadeInUp">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
+          <div class="flex-1">
+            <h3 class="font-display text-3xl md:text-4xl font-bold text-text-primary mb-2" contenteditable="true">
+              SOFTWARE ENGINEER
+            </h3>
+            <p class="text-brand-tertiary font-primary font-bold text-lg mb-1" contenteditable="true">
+              Digital Innovations Inc
+            </p>
+            <p class="text-text-secondary text-sm" contenteditable="true">San Jose, CA</p>
+          </div>
+          <div class="bg-neutral-surface text-brand-secondary font-primary font-bold px-6 py-3 uppercase tracking-wider text-sm whitespace-nowrap h-fit border-4 border-brand-secondary">
+            <span contenteditable="true">2017 - 2019</span>
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="border-l-4 border-brand-primary pl-4 py-2">
+            <span class="text-text-secondary" contenteditable="true">Built 15+ RESTful APIs for e-commerce platform with $10M annual revenue</span>
+          </div>
+          <div class="border-l-4 border-brand-secondary pl-4 py-2">
+            <span class="text-text-secondary" contenteditable="true">Implemented testing framework achieving 85% coverage, reducing bugs by 45%</span>
+          </div>
+          <div class="border-l-4 border-brand-tertiary pl-4 py-2">
+            <span class="text-text-secondary" contenteditable="true">Launched 3 major features used by 500K+ customers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job 3 -->
+      <div class="border-4 border-brand-accent bg-neutral-surface p-8 hover:shadow-hover transition-all duration-300" data-animation-on-scroll="fadeInUp">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6">
+          <div class="flex-1">
+            <h3 class="font-display text-3xl md:text-4xl font-bold text-text-primary mb-2" contenteditable="true">
+              JUNIOR DEVELOPER
+            </h3>
+            <p class="text-brand-tertiary font-primary font-bold text-lg mb-1" contenteditable="true">
+              StartupLab
+            </p>
+            <p class="text-text-secondary text-sm" contenteditable="true">Palo Alto, CA</p>
+          </div>
+          <div class="bg-neutral-surface text-brand-tertiary font-primary font-bold px-6 py-3 uppercase tracking-wider text-sm whitespace-nowrap h-fit border-4 border-brand-tertiary">
+            <span contenteditable="true">2016 - 2017</span>
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="border-l-4 border-brand-primary pl-4 py-2">
+            <span class="text-text-secondary" contenteditable="true">Built responsive web apps using React and Redux for startup clients</span>
+          </div>
+          <div class="border-l-4 border-brand-secondary pl-4 py-2">
+            <span class="text-text-secondary" contenteditable="true">Participated in agile development and code reviews</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="py-5 px-6 bg-neutral-background">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-5" data-animation-on-scroll="fadeInUp">
+      <div class="flex items-center gap-6 mb-2">
+        <div class="h-2 w-20 bg-brand-secondary"></div>
+        <span class="font-primary font-bold uppercase tracking-wider text-sm text-brand-secondary">Expertise</span>
+      </div>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-text-primary mb-4">
+        SKILLS
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+      <!-- Languages & Frameworks -->
+      <div class="border-4 border-brand-accent bg-brand-primary p-8" data-animation-on-scroll="fadeInUp">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 border-4 border-brand-accent bg-neutral-surface flex items-center justify-center text-3xl">
+            💻
+          </div>
+          <h3 class="font-display text-3xl font-bold text-text-on-primary">
+            CODE
+          </h3>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">JavaScript</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">TypeScript</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Python</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">React</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Node.js</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Next.js</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">GraphQL</span>
+        </div>
+      </div>
+
+      <!-- Cloud & DevOps -->
+      <div class="border-4 border-brand-accent bg-brand-tertiary p-8" data-animation-on-scroll="fadeInUp">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 border-4 border-brand-accent bg-neutral-surface flex items-center justify-center text-3xl">
+            ☁️
+          </div>
+          <h3 class="font-display text-3xl font-bold text-text-on-primary">
+            CLOUD
+          </h3>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">AWS</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Docker</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Kubernetes</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Jenkins</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Terraform</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">CI/CD</span>
+        </div>
+      </div>
+
+      <!-- Databases -->
+      <div class="border-4 border-brand-accent bg-brand-secondary p-8" data-animation-on-scroll="fadeInUp">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 border-4 border-brand-accent bg-neutral-surface flex items-center justify-center text-3xl">
+            🗄️
+          </div>
+          <h3 class="font-display text-3xl font-bold text-text-on-primary">
+            DATA
+          </h3>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">PostgreSQL</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">MongoDB</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Redis</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">MySQL</span>
+          <span class="border-2 border-brand-accent bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">DynamoDB</span>
+        </div>
+      </div>
+
+      <!-- Tools & Practices -->
+      <div class="border-4 border-brand-accent bg-brand-accent p-8" data-animation-on-scroll="fadeInUp">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 border-4 border-brand-primary bg-neutral-surface flex items-center justify-center text-3xl">
+            🛠️
+          </div>
+          <h3 class="font-display text-3xl font-bold text-text-on-primary">
+            TOOLS
+          </h3>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <span class="border-2 border-brand-primary bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Git</span>
+          <span class="border-2 border-brand-primary bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Agile</span>
+          <span class="border-2 border-brand-primary bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">TDD</span>
+          <span class="border-2 border-brand-primary bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Microservices</span>
+          <span class="border-2 border-brand-primary bg-neutral-surface text-text-primary px-4 py-2 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">REST APIs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Education Section -->
+<section id="education" class="py-5 px-6 skew-section bg-neutral-surface1">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-5" data-animation-on-scroll="fadeInUp">
+      <div class="flex items-center gap-6 mb-2">
+        <div class="h-2 w-20 bg-brand-tertiary"></div>
+        <span class="font-primary font-bold uppercase tracking-wider text-sm text-brand-tertiary">Credentials</span>
+      </div>
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-text-primary mb-4">
+        EDUCATION
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+      <!-- Education -->
+      <div class="border-4 border-brand-accent bg-neutral-surface p-8" data-animation-on-scroll="fadeInUp">
+        <div class="w-16 h-16 border-4 border-brand-primary bg-brand-primary flex items-center justify-center text-3xl mb-6">
+          🎓
+        </div>
+        <h4 class="font-primary font-bold text-xl text-text-primary mb-3" contenteditable="true">
+          Bachelor of Science in Computer Science
+        </h4>
+        <p class="text-brand-primary font-primary font-bold mb-2 uppercase tracking-wide text-sm" contenteditable="true">
+          Stanford University
+        </p>
+        <p class="text-text-secondary mb-4 text-sm" contenteditable="true">
+          Stanford, CA • 2012 - 2016
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="border-2 border-brand-primary text-brand-primary px-3 py-1 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">GPA: 3.8/4.0</span>
+          <span class="border-2 border-brand-primary text-brand-primary px-3 py-1 font-primary font-bold uppercase text-xs tracking-wider" contenteditable="true">Dean's List</span>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="border-4 border-brand-accent bg-brand-accent p-8" data-animation-on-scroll="fadeInUp">
+        <div class="w-16 h-16 border-4 border-brand-secondary bg-brand-secondary flex items-center justify-center text-3xl mb-6">
+          🏆
+        </div>
+        <h3 class="font-display text-2xl font-bold text-text-on-primary mb-6">
+          CERTIFICATIONS
+        </h3>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3 text-neutral-background">
+            <span class="text-brand-primary font-bold text-xl">→</span>
+            <div>
+              <p class="font-primary font-bold" contenteditable="true">
+                AWS Solutions Architect
+              </p>
+              <p class="text-xs text-neutral-border" contenteditable="true">2023</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3 text-neutral-background">
+            <span class="text-brand-primary font-bold text-xl">→</span>
+            <div>
+              <p class="font-primary font-bold" contenteditable="true">
+                Kubernetes Administrator (CKA)
+              </p>
+              <p class="text-xs text-neutral-border" contenteditable="true">2022</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3 text-neutral-background">
+            <span class="text-brand-primary font-bold text-xl">→</span>
+            <div>
+              <p class="font-primary font-bold" contenteditable="true">
+                Google Cloud Developer
+              </p>
+              <p class="text-xs text-neutral-border" contenteditable="true">2021</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-6 px-6 bg-neutral-background relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-brand-primary/10 to-brand-tertiary/10"></div>
+  <div class="max-w-4xl mx-auto relative z-10">
+    <div class="text-center" data-animation-on-scroll="fadeInUp">
+      <div class="inline-block bg-brand-primary text-text-on-primary font-primary font-bold px-4 py-2 uppercase tracking-wider text-xs mb-6">
+        Let's Talk
+      </div>
+      
+      <h2 class="font-display text-5xl md:text-7xl font-bold text-text-primary mb-6 leading-tight">
+        READY TO<br>BUILD SOMETHING<br>AMAZING?
+      </h2>
+      
+      <p class="text-lg md:text-xl text-text-secondary mb-8 max-w-2xl mx-auto">
+        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+      </p>
+      
+      <div class="flex flex-wrap gap-6 justify-center">
+        <a href="mailto:john.anderson@email.com" class="brutalist-border bg-brand-accent text-text-on-primary font-primary font-bold px-10 py-5 uppercase tracking-wide inline-block hover:bg-brand-primary transition-colors">
+          Send Email
+        </a>
+        <a href="https://linkedin.com/in/johnanderson" target="_blank" class="brutalist-border bg-neutral-surface text-text-primary font-primary font-bold px-10 py-5 uppercase tracking-wide inline-block hover:bg-brand-primary hover:text-text-on-primary transition-colors">
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Enhanced editable elements with brutalist styling
+  document.addEventListener('DOMContentLoaded', () => {
+    const editableElements = document.querySelectorAll('[contenteditable="true"]');
+    
+    editableElements.forEach(element => {
+      element.addEventListener('focus', function() {
+        this.style.outline = '3px solid #FF6B35';
+        this.style.outlineOffset = '4px';
+      });
+      
+      element.addEventListener('blur', function() {
+        this.style.outline = 'none';
+      });
+    });
+
+    // Smooth scroll with offset for fixed header
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          const offsetTop = target.offsetTop - 100;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  });
+</script></main>
+
+  <footer class="bg-brand-accent text-neutral-background pt-6 pb-5 mt-6 no-print border-t-8 border-brand-primary">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-5 mb-6">
+        <div>
+          <h3 class="font-display text-5xl font-bold mb-4 text-brand-primary">JA.</h3>
+          <p class="text-neutral-border text-sm leading-relaxed">Building the future, one line of code at a time. Senior Software Engineer with a passion for scalable solutions.</p>
+        </div>
+        <div>
+          <h4 class="font-primary font-bold mb-6 uppercase tracking-wider text-brand-secondary">Connect</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="hover:text-brand-primary transition-colors flex items-center gap-2">→ LinkedIn</a></li>
+            <li><a href="#" class="hover:text-brand-primary transition-colors flex items-center gap-2">→ GitHub</a></li>
+            <li><a href="#" class="hover:text-brand-primary transition-colors flex items-center gap-2">→ Twitter</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-primary font-bold mb-6 uppercase tracking-wider text-brand-secondary">Contact</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="mailto:john.anderson@email.com" class="hover:text-brand-primary transition-colors">john.anderson@email.com</a></li>
+            <li><a href="tel:+15551234567" class="hover:text-brand-primary transition-colors">(555) 123-4567</a></li>
+            <li class="text-neutral-border">San Francisco, CA</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t-2 border-neutral-border-interactive pt-5">
+        <p class="text-sm text-center font-primary">© 2025 John Anderson. Crafted with precision.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Scroll Reveal Animation Logic
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-on-scroll-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05 });
+
+      document.querySelectorAll('[data-animation-on-scroll]').forEach(el => {
+        el.classList.add('animate-on-scroll-hidden');
+        observer.observe(el);
+      });
+    });
+  </script>
+
+
+</body></html>

@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #FF6B35;
+  --color-brand-secondary: #F7931E;
+  --color-brand-tertiary: #004E89;
+  --color-brand-accent: #1A1423;
+  --color-neutral-background: #FFFBF7;
+  --color-neutral-surface: #FFFFFF;
+  --color-neutral-surface1: #FFF4E6;
+  --color-neutral-border: #FFE4CC;
+  --color-neutral-border-interactive: #FF6B35;
+  --color-text-primary: #1A1423;
+  --color-text-secondary: #6B5B62;
+  --color-text-on-primary: #FFFBF7;
+  --color-text-on-primary-alt: #1A1423;
+
+  --font-primary: "Space Grotesk", sans-serif;
+  --font-secondary: "Inter", sans-serif;
+  --font-display: "Bebas Neue", cursive;
+
+  --shadow-card: 8px 8px 0px rgba(26, 20, 35, 0.1);
+  --shadow-subtle: 4px 4px 0px rgba(26, 20, 35, 0.05);
+  --shadow-bold: 12px 12px 0px #FF6B35;
+  --shadow-hover: 16px 16px 0px rgba(255, 107, 53, 0.3);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  background-color: #FFFBF7;
+  font-family: var(--font-secondary);
+  color: #6B5B62;
+  overflow-x: hidden;
+}
+
+/* Brutalist dotted background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, #FF6B35 1px, transparent 1px);
+  background-size: 24px 24px;
+  z-index: -1;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Brutalist borders */
+.brutalist-border {
+  border: 3px solid #1A1423;
+  position: relative;
+  z-index: 1;
+}
+
+.brutalist-border::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 100%;
+  height: 100%;
+  border: 3px solid #FF6B35;
+  z-index: -1;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.brutalist-border:hover::after {
+  transform: translate(4px, 4px);
+}
+
+/* Skewed sections */
+.skew-section {
+  transform: skewY(-2deg);
+  margin: 16px 0;
+}
+
+.skew-section > * {
+  transform: skewY(2deg);
+}
+
+/* Diagonal accent */
+.diagonal-accent {
+  position: relative;
+  overflow: hidden;
+}
+
+.diagonal-accent::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  opacity: 0.08;
+  transform: rotate(15deg);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Editable focus outline */
+[contenteditable="true"]:focus {
+  outline: 3px solid #FF6B35;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media print {
+  body::before {
+    display: none;
+  }
+
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  .brutalist-border::after {
+    display: none;
+  }
+
+  .skew-section,
+  .skew-section > * {
+    transform: none !important;
+  }
+}
